@@ -1,0 +1,40 @@
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+myenv/
+python-env/
+
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Log files (from your background processes)
+*.log
+*.pid
+
+
