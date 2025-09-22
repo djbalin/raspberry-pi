@@ -31,17 +31,19 @@ if not "--no-csv" in sys.argv:
             writer.writerow(csv_headers)
         LOG(f"[Created CSV file: {csv_path}]")
 
+SLEEP_TIME_S = 5*60
+
 try:
     print(f"{datetime.now()}: Initializing measurements...")
+    pi = RaspberryPi()
+
     while True:
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
 
-        pi = RaspberryPi()
 
         aqi, eco2, tvoc, humidity, pressure, temp = pi.get_readings()
 
-        sleep_time = 5*60
         
         if "--debug" in sys.argv:
             print(timestamp)
@@ -51,7 +53,7 @@ try:
             print(f"Temperature: {temp:.2f} (BMP) °C")
             print(f"Humidity: {humidity:.2f} %")
             print("-" * 40)
-            sleep_time = 5
+            SLEEP_TIME_S = 5
         else:
             send_sensor_data(tvoc,eco2,temp,aqi,pressure,humidity) 
 
@@ -67,7 +69,7 @@ try:
             print(f"{timestamp}: Data logged to CSV")
         
         if "--debug" in sys.argv:
-            time.sleep(sleep_time)  # 10 minutes
+            time.sleep(SLEEP_TIME_S)
 
         
 except KeyboardInterrupt:
