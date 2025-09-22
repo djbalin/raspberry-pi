@@ -59,8 +59,6 @@ try:
 
 
 
-
-
         if not "--no-csv" in sys.argv:
             # Save to CSV
             with open(csv_path, 'a', newline='') as file:
@@ -68,8 +66,8 @@ try:
                 writer.writerow([timestamp, eco2, tvoc, aqi, pressure, temp, humidity])
             print(f"{timestamp}: Data logged to CSV")
         
-        if "--debug" in sys.argv:
-            time.sleep(SLEEP_TIME_S)
+
+        time.sleep(SLEEP_TIME_S)
 
         
 except KeyboardInterrupt:
