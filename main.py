@@ -6,25 +6,33 @@ from datetime import datetime
 
 from pi import RaspberryPi
 from utils.network import send_sensor_data
+from utils.logging import LOG
 
 
 
 
 # CSV setup
-csv_filename = 'sensor_data.csv'
+output_dir = './output'
+csv_path = output_dir + '/' + 'sensor_data.csv'
 csv_headers = ['timestamp', 'eCO2_ppm', 'TVOC_ppb', 'air_quality_index', 'pressure_hPa', 'temperature_bmp_C', 'humidity_percent']
 
 
+if not "--no-csv" in sys.argv:
+    # Create output directory if it doesn't exist
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+        LOG(f"[Created output directory: {output_dir}]")
 
 
-# Create CSV file with headers if it doesn't exist
-if not os.path.exists(csv_filename):
-    with open(csv_filename, 'w', newline='') as file:
-        writer = csv.writer(file)
-        writer.writerow(csv_headers)
+    # Create CSV file with headers if it doesn't exist
+    if not os.path.exists(output_dir+"/"+csv_path):
+        with open(csv_path, 'w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(csv_headers)
+        LOG(f"[Created CSV file: {csv_path}]")
 
 try:
-    print("Initializing measurements...")
+    print(f"{datetime.now()}: Initializing measurements...")
     while True:
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         
@@ -32,6 +40,8 @@ try:
         pi = RaspberryPi()
 
         aqi, eco2, tvoc, humidity, pressure, temp = pi.get_readings()
+
+        sleep_time = 5*60
         
         if "--debug" in sys.argv:
             print(timestamp)
@@ -41,6 +51,7 @@ try:
             print(f"Temperature: {temp:.2f} (BMP) °C")
             print(f"Humidity: {humidity:.2f} %")
             print("-" * 40)
+            sleep_time = 5
         else:
             send_sensor_data(tvoc,eco2,temp,aqi,pressure,humidity) 
 
@@ -48,14 +59,15 @@ try:
 
 
 
-        if "--save-csv" in sys.argv:
+        if not "--no-csv" in sys.argv:
             # Save to CSV
-            with open(csv_filename, 'a', newline='') as file:
+            with open(csv_path, 'a', newline='') as file:
                 writer = csv.writer(file)
                 writer.writerow([timestamp, eco2, tvoc, aqi, pressure, temp, humidity])
             print(f"{timestamp}: Data logged to CSV")
         
-        time.sleep(10*60)  # 10 minutes
+        if "--debug" in sys.argv:
+            time.sleep(sleep_time)  # 10 minutes
 
         
 except KeyboardInterrupt:

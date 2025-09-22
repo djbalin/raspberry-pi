@@ -1,5 +1,7 @@
 import requests
 
+from .logging import LOG
+
 API_ENDPOINT = "https://air-quality-backend-production.up.railway.app/readings"
 
 def send_sensor_data(tvoc_ppb, eco2_ppm, temp_c, aqi, pressure_hPa, humidity_pct):
@@ -24,18 +26,18 @@ def send_sensor_data(tvoc_ppb, eco2_ppm, temp_c, aqi, pressure_hPa, humidity_pct
         )
         
         if response.status_code == 201:
-            print(f"✓ Data sent successfully: {response.json()}")
+            LOG(f"✓ Data sent successfully: {response.json()}")
             return True
         else:
-            print(f"✗ Failed to send data. Status: {response.status_code}, Response: {response.text}")
+            LOG(f"✗ Failed to send data. Status: {response.status_code}, Response: {response.text}")
             return False
             
     except requests.exceptions.Timeout:
-        print("✗ Request timed out")
+        LOG("✗ Request timed out")
         return False
     except requests.exceptions.ConnectionError:
-        print("✗ Connection error - check internet connection")
+        LOG("✗ Connection error - check internet connection")
         return False
     except requests.exceptions.RequestException as e:
-        print(f"✗ Request failed: {e}")
+        LOG(f"✗ Request failed: {e}")
         return False

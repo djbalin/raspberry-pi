@@ -38,7 +38,7 @@ echo "Log file: $LOG_FILE"
 echo "PID file: $PID_FILE"
 echo ""
 
-nohup python3 "$PYTHON_FILE" > "$LOG_FILE" 2>&1 &
+nohup python3 -u "$PYTHON_FILE" > "$LOG_FILE" 2>&1 &
 PID=$!
 
 # Save PID to file

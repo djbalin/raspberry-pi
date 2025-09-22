@@ -2,6 +2,7 @@ from sensors.aht21 import Aht21
 from sensors.bmp280 import BMP280
 from sensors.ens160 import Ens160
 import board
+import time
 import busio
 
 class RaspberryPi:
@@ -10,6 +11,9 @@ class RaspberryPi:
         self.ens160 = Ens160(i2c)
         self.bmp280 = BMP280(i2c)
         self.aht21 = Aht21(i2c)
+        print("raspberry pi: sensors initialized. warming up (sleeping) 60 seconds...")
+        time.sleep(60)
+        print("raspberry pi: warmup complete")
     
     def get_aqi(self):
         return self.ens160.get_aqi()
