@@ -6,13 +6,13 @@ import time
 import busio
 
 class RaspberryPi:
-    def __init__(self):
+    def __init__(self, warmup_s = 60):
         i2c = busio.I2C(board.SCL, board.SDA)
         self.ens160 = Ens160(i2c)
         self.bmp280 = BMP280(i2c)
         self.aht21 = Aht21(i2c)
-        print("raspberry pi: sensors initialized. warming up (sleeping) 60 seconds...")
-        time.sleep(60)
+        print(f"raspberry pi: sensors initialized. warming up (sleeping) {warmup_s} seconds...")
+        time.sleep(warmup_s)
         print("raspberry pi: warmup complete")
     
     def get_aqi(self):
@@ -32,6 +32,9 @@ class RaspberryPi:
 
     def get_temp(self):
         return self.bmp280.get_temp()
+
+    def print_status(self):
+        return self.ens160.get_status()
 
     def get_readings(self):
         aqi = self.get_aqi()
