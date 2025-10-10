@@ -6,15 +6,27 @@ class Ens160:
           # Check status
     
     def get_eco2(self):
-        eco2 = self.ens160.eCO2
+        try:
+            eco2 = self.ens160.eCO2
+        except Exception as e:
+            print(f"ENS160 error getting eCO2: {e}")
+            return None
         return eco2
 
     def get_tvoc(self):
-        tvoc = self.ens160.TVOC
+        try:
+            tvoc = self.ens160.TVOC
+        except Exception as e:
+            print(f"ENS160 error getting TVOC: {e}")
+            return None
         return tvoc
 
     def get_aqi(self):
-        aqi = self.ens160.AQI
+        try:
+            aqi = self.ens160.AQI
+        except Exception as e:
+            print(f"ENS160 error getting AQI: {e}")
+            return None
         return aqi
    
     def get_status(self):

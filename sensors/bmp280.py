@@ -6,11 +6,19 @@ class BMP280:
         self.bmp280 = bmp280
     
     def get_pressure(self):
-          pressure = self.bmp280.pressure
-          return pressure
+        try:
+            pressure = self.bmp280.pressure
+            return pressure
+        except Exception as e:
+            print(f"BMP280 error getting pressure: {e}")
+            return None
 
     def get_temp(self):
-        temp_bmp = self.bmp280.temperature
-        return temp_bmp
+        try:
+            temp_bmp = self.bmp280.temperature
+            return temp_bmp
+        except Exception as e:
+            print(f"BMP280 error getting temperature: {e}")
+            return None
 
         
