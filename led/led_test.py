@@ -3,7 +3,7 @@
 import time
 
 from led import LED
-from led.traffic_light import TrafficLight
+from led import TrafficLight
 GREEN_PIN = 17
 YELLOW_PIN = 27
 RED_PIN = 22

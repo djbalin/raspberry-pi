@@ -2,12 +2,14 @@
 
 import time
 
+from led import LED
+
 
 class TrafficLight:
-    def __init__(self, green_led, yellow_led, red_led):
-        self.green_led = green_led
-        self.yellow_led = yellow_led
-        self.red_led = red_led
+    def __init__(self, green_pin, yellow_pin, red_pin):
+        self.green_led = LED(green_pin)
+        self.yellow_led = LED(yellow_pin)
+        self.red_led = LED(red_pin)
 
     def green_on(self):
         self.green_led.on()
