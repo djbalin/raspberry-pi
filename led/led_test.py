@@ -14,6 +14,7 @@ try:
     yellow_led = LED(YELLOW_PIN)
     red_led = LED(RED_PIN)
     print("leds initialized")
+    print(green_led)
     while True:
         green_led.on()
         time.sleep(0.2)
