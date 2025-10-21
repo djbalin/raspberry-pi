@@ -3,33 +3,17 @@
 import time
 
 from led import LED
-
+from led.traffic_light import TrafficLight
 GREEN_PIN = 17
 YELLOW_PIN = 27
 RED_PIN = 22
 
 try:
     print("Initializing test")
-    green_led = LED(GREEN_PIN)
-    yellow_led = LED(YELLOW_PIN)
-    red_led = LED(RED_PIN)
-    print("leds initialized")
-    print(green_led)
+    traffic_light = TrafficLight(LED(GREEN_PIN), LED(YELLOW_PIN), LED(RED_PIN))
+    print("traffic light initialized")
     while True:
-        green_led.on()
-        time.sleep(0.2)
-        yellow_led.on()
-        time.sleep(0.2)
-        red_led.on()
-        time.sleep(1)
-        green_led.off()
-        time.sleep(1)
-        yellow_led.off()
-        time.sleep(1)
-        red_led.off()
-        time.sleep(1)
+        traffic_light.dance()
 except KeyboardInterrupt:
-    green_led.cleanup()
-    yellow_led.cleanup()
-    red_led.cleanup()
-    print("LED test stopped")
+    traffic_light.cleanup()
+    print("traffic light test stopped")
