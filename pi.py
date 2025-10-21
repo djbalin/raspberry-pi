@@ -19,8 +19,10 @@ class RaspberryPi:
 
         self.traffic_light = TrafficLight(GREEN_PIN, YELLOW_PIN, RED_PIN)
         print(f"raspberry pi: sensors initialized. warming up (sleeping) {warmup_s} seconds...")
-        self.traffic_light.dance_duration(warmup_s)
-        # time.sleep(warmup_s)
+        time_start = time.time()
+        while (time.time() - time_start < warmup_s):
+            self.traffic_light.dance()
+            time.sleep(5)
         print("raspberry pi: warmup complete")
 
     

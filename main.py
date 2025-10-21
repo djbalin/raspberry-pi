@@ -52,6 +52,7 @@ try:
 
         if isError:
             pi.traffic_light.error()
+            print("Error. Tvoc reading: {tvoc}, Eco2 reading: {eco2}")
             continue
 
         
@@ -80,6 +81,10 @@ try:
         
 except KeyboardInterrupt:
     print("Logging stopped")
+except Exception as e:
+    print(f"Error: {e}")
+    pi.traffic_light.cleanup()
+    sys.exit(1)
 
 
 
