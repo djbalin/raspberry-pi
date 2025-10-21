@@ -16,7 +16,7 @@ class RaspberryPi:
         self.ens160 = Ens160(i2c)
         self.bmp280 = BMP280(i2c)
         self.aht21 = Aht21(i2c)
-
+        self.warmup_s = warmup_s
         self.traffic_light = TrafficLight(GREEN_PIN, YELLOW_PIN, RED_PIN)
         print(f"raspberry pi: sensors initialized. warming up (sleeping) {warmup_s} seconds...")
         time_start = time.time()
