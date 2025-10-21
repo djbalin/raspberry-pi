@@ -11,11 +11,9 @@ class LED:
 
     def on(self):
         GPIO.output(self.pin, GPIO.HIGH)
-        print(self.pin)
 
     def off(self):
         GPIO.output(self.pin, GPIO.LOW)
-        print(self.pin)
 
     def toggle(self):
         GPIO.output(self.pin, GPIO.HIGH if GPIO.input(self.pin) == GPIO.LOW else GPIO.LOW)
