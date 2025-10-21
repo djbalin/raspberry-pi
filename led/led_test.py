@@ -9,9 +9,11 @@ YELLOW_PIN = 27
 RED_PIN = 22
 
 try:
+    print("Initializing test")
     green_led = LED(GREEN_PIN)
     yellow_led = LED(YELLOW_PIN)
     red_led = LED(RED_PIN)
+    print("leds initialized")
     while True:
         green_led.on()
         time.sleep(0.2)
