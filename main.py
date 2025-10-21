@@ -43,7 +43,9 @@ error_count = 0
 
 
 
-def loop_readings():
+
+
+try:
     print(f"{datetime.now()}: Initializing measurements...")
     pi = RaspberryPi()
 
@@ -89,14 +91,11 @@ def loop_readings():
 
         time.sleep(SLEEP_TIME_S)
 
-
-
-try:
-    loop_readings()
-
         
 except KeyboardInterrupt:
     print("Logging stopped")
+    pi.traffic_light.cleanup()
+    sys.exit(0)
 except Exception as e:
     print(f"Error: {e}")
     pi.traffic_light.cleanup()
