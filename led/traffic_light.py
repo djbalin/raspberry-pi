@@ -11,6 +11,18 @@ class TrafficLight:
         self.yellow_led = LED(yellow_pin)
         self.red_led = LED(red_pin)
 
+    def error(self):
+        while True:
+            self.red_only()
+            time.sleep(0.1)
+            self.red_off()
+            time.sleep(0.1)
+            self.red_only()
+            time.sleep(0.1)
+            self.red_off()
+            time.sleep(0.1)
+            self.red_only()
+
     def green_on(self):
         self.green_led.on()
     def yellow_on(self):

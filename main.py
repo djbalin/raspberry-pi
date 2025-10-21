@@ -50,6 +50,7 @@ try:
 
         aqi, eco2, tvoc, humidity, pressure, temp, color_code = pi.get_readings()
 
+
         
         if "--debug" in sys.argv:
             print(timestamp)
