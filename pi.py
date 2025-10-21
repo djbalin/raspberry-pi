@@ -69,6 +69,8 @@ class RaspberryPi:
         temp = self.get_temp()
 
         color_code = get_color_code(tvoc, eco2)
+        self.traffic_light.all_off()
+        time.sleep(1)
         self.show_color(color_code)
         
         return (aqi, eco2, tvoc, humidity, pressure, temp, color_code)
