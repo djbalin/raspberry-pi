@@ -81,3 +81,9 @@ class TrafficLight:
         self.green_on()
         time.sleep(0.1)
         self.yellow_on()
+
+
+    def dance_duration(self, duration_s):
+        num_dances = duration_s/5
+        for i in range(0,5):
+            self.dance()
