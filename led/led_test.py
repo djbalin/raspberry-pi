@@ -2,7 +2,7 @@
 
 import time
 
-from led.led import LED
+from led import LED
 
 GREEN_PIN = 17
 YELLOW_PIN = 27
