@@ -98,5 +98,5 @@ class TrafficLight:
 
     def dance_duration(self, duration_s):
         num_dances = duration_s/5
-        for i in range(0,num_dances):
+        for i in range(0, int(num_dances)):
             self.dance()
