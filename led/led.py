@@ -23,3 +23,7 @@ class LED:
 
     def toggle(self):
         GPIO.output(self.pin, GPIO.HIGH if GPIO.input(self.pin) == GPIO.LOW else GPIO.LOW)
+    
+    def cleanup(self):
+        self.off()
+        GPIO.cleanup(self.pin)

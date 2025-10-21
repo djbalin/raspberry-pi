@@ -28,7 +28,7 @@ try:
         red_led.off()
         time.sleep(1)
 except KeyboardInterrupt:
-    green_led.off()
-    yellow_led.off()
-    red_led.off()
+    green_led.cleanup()
+    yellow_led.cleanup()
+    red_led.cleanup()
     print("LED test stopped")
