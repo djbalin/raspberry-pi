@@ -12,7 +12,6 @@ class TrafficLight:
         self.red_led = LED(red_pin)
 
     def error(self):
-        while True:
             self.red_only()
             time.sleep(0.1)
             self.red_off()
@@ -20,6 +19,8 @@ class TrafficLight:
             self.red_only()
             time.sleep(0.1)
             self.red_off()
+            time.sleep(0.1)
+            self.red_only()
             time.sleep(0.1)
             self.red_only()
 
@@ -97,5 +98,5 @@ class TrafficLight:
 
     def dance_duration(self, duration_s):
         num_dances = duration_s/5
-        for i in range(0,5):
+        for i in range(0,num_dances):
             self.dance()

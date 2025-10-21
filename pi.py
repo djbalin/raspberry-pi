@@ -50,8 +50,8 @@ class RaspberryPi:
     def show_color(self, color_code):
         self.traffic_light.all_off()
         time.sleep(0.1)
-        if color_code == "ERROR":
-            self.traffic_light.error()
+        if color_code == 0:
+            self.traffic_light.all_off()
         elif color_code == 5:
             self.traffic_light.red_only()
         elif color_code == 4:
@@ -74,24 +74,26 @@ class RaspberryPi:
         humidity = self.get_humidity()
         pressure = self.get_pressure()
         temp = self.get_temp()
+        
+        isError = tvoc == None or eco2 == None or tvoc == 0 or eco2 == 0
 
 
         color_code = get_color_code(tvoc, eco2)
         self.show_color(color_code)
         
-        return (aqi, eco2, tvoc, humidity, pressure, temp, color_code)
+        return (aqi, eco2, tvoc, humidity, pressure, temp, color_code, isError)
     
 
 def get_color_code(tvoc, eco2):
     if tvoc == None or eco2 == None or tvoc == 0 or eco2 == 0:
-        return "ERROR"
-    elif tvoc > 600 or eco2 > 1200:
+        return 0
+    elif tvoc > 600 or eco2 > 1400:
         return 5
-    elif tvoc > 400 or eco2 > 1000:
+    elif tvoc > 400 or eco2 > 1200:
         return 4
-    elif tvoc > 300 or eco2 > 800:
+    elif tvoc > 300 or eco2 > 1000:
         return 3
-    elif tvoc > 150 or eco2 > 600:
+    elif tvoc > 150 or eco2 > 800:
         return 2
     else:
         return 1

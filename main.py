@@ -48,8 +48,11 @@ try:
         
 
 
-        aqi, eco2, tvoc, humidity, pressure, temp, color_code = pi.get_readings()
+        aqi, eco2, tvoc, humidity, pressure, temp, color_code, isError = pi.get_readings()
 
+        if isError:
+            pi.traffic_light.error()
+            continue
 
         
         if "--debug" in sys.argv:
