@@ -2,7 +2,7 @@
 
 import time
 
-from led import LED
+from .led import LED
 
 
 class TrafficLight:

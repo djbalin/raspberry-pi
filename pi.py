@@ -1,4 +1,3 @@
-from led import traffic_light
 from led.traffic_light import TrafficLight
 from sensors.aht21 import Aht21
 from sensors.bmp280 import BMP280
@@ -49,14 +48,20 @@ class RaspberryPi:
 
     
     def show_color(self, color_code):
-        if color_code == "RED":
+        self.traffic_light.all_off()
+        time.sleep(0.1)
+        if color_code == 5:
             self.traffic_light.red_only()
-        elif color_code == "YELLOW":
+        elif color_code == 4:
+            self.traffic_light.red_on()
+            self.traffic_light.yellow_on()
+        elif color_code == 3:
             self.traffic_light.yellow_only()
-        elif color_code == "GREEN":
+        elif color_code == 2:
+            self.traffic_light.green_on()
+            self.traffic_light.yellow_on()
+        elif color_code == 1:
             self.traffic_light.green_only()
-        else:
-            self.traffic_light.all_off()
     
  
 
@@ -69,16 +74,19 @@ class RaspberryPi:
         temp = self.get_temp()
 
         color_code = get_color_code(tvoc, eco2)
-        self.traffic_light.all_off()
-        time.sleep(1)
         self.show_color(color_code)
         
         return (aqi, eco2, tvoc, humidity, pressure, temp, color_code)
     
 
 def get_color_code(tvoc, eco2):
-    if tvoc > 500 or eco2 > 1000:
-        return "RED"
-    if tvoc > 200 or eco2 > 750:
-        return "YELLOW"
-    return "GREEN"
+    if tvoc > 600 or eco2 > 1200:
+        return 5
+    if tvoc > 400 or eco2 > 1000:
+        return 4
+    elif tvoc > 300 or eco2 > 800:
+        return 3
+    elif tvoc > 150 or eco2 > 600:
+        return 2
+    else:
+        return 1
