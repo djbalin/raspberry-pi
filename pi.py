@@ -24,6 +24,9 @@ class RaspberryPi:
             self.traffic_light.dance()
             time.sleep(5)
         print("raspberry pi: warmup complete")
+    
+    def reset(self):
+        self.__init__(self.warmup_s)
 
     
     

@@ -39,7 +39,11 @@ if not "--no-csv" in sys.argv:
 
 SLEEP_TIME_S = 5*60
 
-try:
+error_count = 0
+
+
+
+def loop_readings():
     print(f"{datetime.now()}: Initializing measurements...")
     pi = RaspberryPi()
 
@@ -50,9 +54,16 @@ try:
 
         aqi, eco2, tvoc, humidity, pressure, temp, color_code, isError = pi.get_readings()
 
+        # if error count is above 10, restart
+        if error_count > 10:
+            pi.reset()
+            error_count = 0
+            continue
+
         if isError:
             pi.traffic_light.error()
-            print("Error. Tvoc reading: {tvoc}, Eco2 reading: {eco2}")
+            error_count += 1
+            print(f"Error. Tvoc reading: {tvoc}, Eco2 reading: {eco2}")
             continue
 
         
@@ -78,6 +89,11 @@ try:
 
         time.sleep(SLEEP_TIME_S)
 
+
+
+try:
+    loop_readings()
+
         
 except KeyboardInterrupt:
     print("Logging stopped")
@@ -85,6 +101,8 @@ except Exception as e:
     print(f"Error: {e}")
     pi.traffic_light.cleanup()
     sys.exit(1)
+
+
 
 
 
