@@ -48,16 +48,14 @@ try:
         
 
 
-        aqi, eco2, tvoc, humidity, pressure, temp = pi.get_readings()
+        aqi, eco2, tvoc, humidity, pressure, temp, color_code = pi.get_readings()
 
         
         if "--debug" in sys.argv:
             print(timestamp)
-            print(f"eCO2: {eco2} ppm (TVOC: {tvoc} ppb)")
-            print(f"Air Quality Index: {aqi}")
-            print(f"Pressure: {pressure:.2f} hPa")
-            print(f"Temperature: {temp:.2f} (BMP) °C")
-            print(f"Humidity: {humidity:.2f} %")
+            print(f"eCO2: {eco2} ppm (TVOC: {tvoc} ppb), AQI: {aqi}")
+            print(f"{temp:.2f} C | {pressure:.2f} hPa | {humidity:.2f} %")
+            print(f"{color_code}")
             print("-" * 40)
             SLEEP_TIME_S = 5
         else:
@@ -78,6 +76,7 @@ try:
         
 except KeyboardInterrupt:
     print("Logging stopped")
+
 
 
 

@@ -1,4 +1,4 @@
-from traffic_light import TrafficLight
+from led.traffic_light import TrafficLight
 GREEN_PIN = 17
 YELLOW_PIN = 27
 RED_PIN = 22
