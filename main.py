@@ -10,6 +10,12 @@ from utils.logging import LOG
 
 
 
+# LED pins
+GREEN_PIN = 17  # row 35 LED anode wire
+YELLOW_PIN = 27  # row 40 LED anode wire
+RED_PIN = 22  # row 45 LED anode wire
+
+
 
 # CSV setup
 output_dir = './output'
