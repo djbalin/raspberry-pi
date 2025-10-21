@@ -11,7 +11,7 @@ YELLOW_PIN = 27
 RED_PIN = 22
 
 class RaspberryPi:
-    def __init__(self, warmup_s = 60):
+    def __init__(self, warmup_s = 30):
         i2c = busio.I2C(board.SCL, board.SDA)
         self.ens160 = Ens160(i2c)
         self.bmp280 = BMP280(i2c)
