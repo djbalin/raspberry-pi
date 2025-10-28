@@ -91,9 +91,6 @@ class TrafficLight:
         time.sleep(1)
         self.all_off()
         time.sleep(0.5)
-        self.green_on()
-        time.sleep(0.1)
-        self.yellow_on()
 
 
     def dance_duration(self, duration_s):

@@ -69,15 +69,15 @@ try:
             continue
 
         
-        if "--debug" in sys.argv:
-            print(timestamp)
-            print(f"eCO2: {eco2} ppm (TVOC: {tvoc} ppb), AQI: {aqi}")
-            print(f"{temp:.2f} C | {pressure:.2f} hPa | {humidity:.2f} %")
-            print(f"{color_code}")
-            print("-" * 40)
-            SLEEP_TIME_S = 5
-        else:
-            send_sensor_data(tvoc,eco2,temp,aqi,pressure,humidity) 
+        #if "--debug" in sys.argv:
+        print(timestamp)
+        print(f"eCO2: {eco2} ppm (TVOC: {tvoc} ppb), AQI: {aqi}")
+        print(f"{temp:.2f} C | {pressure:.2f} hPa | {humidity:.2f} %")
+        print(f"{color_code}")
+        print("-" * 40)
+        SLEEP_TIME_S = 5
+        #else:
+         #   send_sensor_data(tvoc,eco2,temp,aqi,pressure,humidity) 
 
 
 

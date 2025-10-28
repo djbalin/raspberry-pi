@@ -11,7 +11,7 @@ YELLOW_PIN = 27
 RED_PIN = 22
 
 class RaspberryPi:
-    def __init__(self, warmup_s = 30):
+    def __init__(self, warmup_s = 60):
         i2c = busio.I2C(board.SCL, board.SDA)
         self.ens160 = Ens160(i2c)
         self.bmp280 = BMP280(i2c)
@@ -92,9 +92,9 @@ class RaspberryPi:
 def get_color_code(tvoc, eco2):
     if tvoc == None or eco2 == None or tvoc == 0 or eco2 == 0:
         return 0
-    elif tvoc > 600 or eco2 > 1400:
+    elif tvoc > 700 or eco2 > 1400:
         return 5
-    elif tvoc > 400 or eco2 > 1200:
+    elif tvoc > 500 or eco2 > 1200:
         return 4
     elif tvoc > 300 or eco2 > 1000:
         return 3
