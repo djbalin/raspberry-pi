@@ -37,12 +37,20 @@ if not "--no-csv" in sys.argv:
             writer.writerow(csv_headers)
         LOG(f"[Created CSV file: {csv_path}]")
 
-SLEEP_TIME_S = 5*60
+SLEEP_TIME_S = 10
 
 error_count = 0
 
+NETWORK_INTERVAL_S = 10*60
+LAST_NETWORK_CHECK_TIME = datetime.now()
 
-
+def network_interval_passed():
+    global LAST_NETWORK_CHECK_TIME
+    if datetime.now() - LAST_NETWORK_CHECK_TIME > NETWORK_INTERVAL_S:
+        LAST_NETWORK_CHECK_TIME = datetime.now()
+        return True
+    else:
+        return False
 
 
 try:
@@ -57,7 +65,7 @@ try:
         aqi, eco2, tvoc, humidity, pressure, temp, color_code, isError = pi.get_readings()
 
         # if error count is above 10, restart
-        if error_count > 10:
+        if error_count > 20:
             pi.reset()
             error_count = 0
             continue
@@ -73,13 +81,11 @@ try:
         print(timestamp)
         print(f"eCO2: {eco2} ppm (TVOC: {tvoc} ppb), AQI: {aqi}")
         print(f"{temp:.2f} C | {pressure:.2f} hPa | {humidity:.2f} %")
-        print(f"{color_code}")
+        print(f"Color code: {color_code}")
         print("-" * 40)
-        SLEEP_TIME_S = 5
-        #else:
-         #   send_sensor_data(tvoc,eco2,temp,aqi,pressure,humidity) 
-
-
+        
+        if network_interval_passed():
+            send_sensor_data(tvoc,eco2,temp,aqi,pressure,humidity)
 
         if not "--no-csv" in sys.argv:
             # Save to CSV

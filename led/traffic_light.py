@@ -90,10 +90,6 @@ class TrafficLight:
         self.all_on()
         time.sleep(1)
         self.all_off()
-        time.sleep(0.5)
-
-
-    def dance_duration(self, duration_s):
-        num_dances = duration_s/5
-        for i in range(0, int(num_dances)):
-            self.dance()
+        self.all_on()
+        time.sleep(1)
+        self.all_off()
