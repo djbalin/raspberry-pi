@@ -2,7 +2,7 @@ import sys
 import time
 import csv
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from pi import RaspberryPi
 from utils.network import send_sensor_data
@@ -46,7 +46,7 @@ LAST_NETWORK_CHECK_TIME = datetime.now()
 
 def network_interval_passed():
     global LAST_NETWORK_CHECK_TIME
-    if datetime.now() - LAST_NETWORK_CHECK_TIME > NETWORK_INTERVAL_S:
+    if datetime.now() - LAST_NETWORK_CHECK_TIME > timedelta(seconds=NETWORK_INTERVAL_S):
         LAST_NETWORK_CHECK_TIME = datetime.now()
         return True
     else:
